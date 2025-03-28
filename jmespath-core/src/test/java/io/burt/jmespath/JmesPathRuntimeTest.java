@@ -1589,7 +1589,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("max_by(@, &foo)", parse("{}"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was object"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was object"));
     }
   }
 
@@ -1599,7 +1599,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("max_by(&foo, @)", parse("[]"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was expression"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was expression"));
     }
   }
 
@@ -1793,7 +1793,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("min_by(@, &foo)", parse("{}"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was object"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was object"));
     }
   }
 
@@ -1803,7 +1803,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("min_by(&foo, @)", parse("[]"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was expression"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was expression"));
     }
   }
 
@@ -2024,7 +2024,7 @@ public abstract class JmesPathRuntimeTest<T> {
 
   @Test
   public void sortBySortsTheInputBasedOnNumbersReturnedByAnExpression() {
-    T result = search("sort_by(@, &foo)[*].foo", parse("[{\"foo\": 3}, {\"foo\": -6}, {\"foo\": 1}]"));
+    T result = search("sort_by(@, &[1])[*][1]", parse("[[\"foo\", 3], [\"foo\", -6], [\"foo\", 1]]"));
     assertThat(result, is(parse("[-6, 1, 3]")));
   }
 
@@ -2072,7 +2072,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("sort_by(@, &foo)", parse("{}"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was object"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was object"));
     }
   }
 
@@ -2082,7 +2082,7 @@ public abstract class JmesPathRuntimeTest<T> {
       search("sort_by(&foo, @)", parse("[]"));
       fail("Expected ArgumentTypeException to have been thrown");
     } catch (ArgumentTypeException ate) {
-      assertThat(ate.getMessage(), containsString("expected array of object but was expression"));
+      assertThat(ate.getMessage(), containsString("expected array of array or object but was expression"));
     }
   }
 

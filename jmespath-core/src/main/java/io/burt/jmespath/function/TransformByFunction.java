@@ -13,7 +13,7 @@ import io.burt.jmespath.Expression;
 public abstract class TransformByFunction extends BaseFunction {
   public TransformByFunction() {
     super(
-      ArgumentConstraints.arrayOf(ArgumentConstraints.typeOf(JmesPathType.OBJECT)),
+      ArgumentConstraints.arrayOf(ArgumentConstraints.typeOf(JmesPathType.ARRAY, JmesPathType.OBJECT)),
       ArgumentConstraints.expression()
     );
   }
